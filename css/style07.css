@@ -1,0 +1,53 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: white; /* Background color remains white */
+  margin: 0;
+  flex-direction: column;
+}
+
+#flashlight {
+  width: 100px;
+  height: 200px;
+  background-color: #333;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#flashlight::before {
+  content: "";
+  width: 60px;
+  height: 60px;
+  background-color: #ddd; /* Color when flashlight is off */
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.flashlight-on #flashlight::before {
+  background-color: yellow; /* Color when flashlight is on */
+  box-shadow: 0 0 50px 20px yellow; /* Bright yellow glow */
+}
+
+#switchBtn {
+  padding: 12px 24px;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+#switchBtn:hover {
+  background-color: #45a049;
+}
