@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stoppeklokke</title>
+    <link rel="stylesheet" href="/css/style03.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <button class="clockButton" onclick="startTimer()">Start Timer</button>
+      <button class="clockButton" onclick="pauseTimer()">Pause</button>
+      <button class="clockButton" onclick="resetTimer()">Stop & Reset</button
+      ><br />
+
+      <div id="app" class="clockDisplay">0</div>
+      <div>RUNDETIDER:</div>
+      <ul id="lastRound" class="roundsList"></ul>
+    </div>
+    <script src="/js/task-03.js"></script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trafikklys med Timer</title>
+    <link rel="stylesheet" href="./css/style04.css" />
+  </head>
+  <body onload="lightTimer()">
+    <div id="trafikklys">
+      <div id="rodt" class="rodt sirkel"></div>
+      <div id="orange" class="orange sirkel"></div>
+      <div id="gronn" class="gronn sirkel"></div>
+    </div>
+
+    <button onclick="setLight('rodt')">Rødt lys</button>
+    <button onclick="setLight('rodt+orange')">Rødt og gult lys</button>
+    <button onclick="setLight('gronn')">Grønt lys</button>
+    <button onclick="lightTimer()">Start trafikklys</button>
+
+    <script src="./js/task-04.js"></script>
+  </body>
+</html>

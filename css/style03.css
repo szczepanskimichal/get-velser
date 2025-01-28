@@ -1,0 +1,41 @@
+.wrapper {
+  background-color: blueviolet;
+  height: 220px;
+  width: 220px;
+  border-radius: 50%;
+  padding: 20px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.clockButton {
+  margin-top: 10px;
+  margin-left: 5px;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.clockDisplay {
+  height: 30px;
+  width: 60px;
+  border: 1px solid black;
+  margin-top: 15px;
+  background-color: antiquewhite;
+  font-size: 20px;
+  text-align: center;
+}
+
+.roundsList {
+  background-color: antiquewhite;
+  height: 70px;
+  width: 120px;
+  border: 1px solid black;
+  margin-top: 10px;
+  font-size: small;
+  overflow-y: auto;
+  list-style: none;
+  padding: 5px;
+}

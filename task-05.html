@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oppgave 'This'</title>
+    <style>
+      .keyboard {
+        display: flex;
+        flex-wrap: wrap;
+        width: 200px;
+      }
+      .key {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        text-align: center;
+        line-height: 50px;
+        background-color: lightgray;
+        cursor: pointer;
+      }
+      .key:hover {
+        background-color: gray;
+      }
+    </style>
+  </head>
+  <body>
+    <input
+      type="text"
+      id="textField"
+      style="width: 200px; margin-bottom: 10px"
+    />
+    <div class="keyboard">
+      <div class="key" onclick="updateTextField(this)">A</div>
+      <div class="key" onclick="updateTextField(this)">B</div>
+      <div class="key" onclick="updateTextField(this)">C</div>
+      <div class="key" onclick="updateTextField(this)">D</div>
+      <div class="key" onclick="updateTextField(this)">E</div>
+      <div class="key" onclick="updateTextField(this)">F</div>
+      <div class="key" onclick="updateTextField(this)">G</div>
+      <div class="key" onclick="updateTextField(this)">H</div>
+      <div class="key" onclick="updateTextField(this)">I</div>
+      <div class="key" onclick="updateTextField(this)">J</div>
+    </div>
+    <button onclick="document.getElementById('textField').value = ''">
+      Clear
+    </button>
+    <button onclick="extra()">extra knappen</button>
+    <div id="1" style="font-size: 50px; width: 200px; border-radius: 5%"></div>
+
+    <script>
+      function extra() {
+        document.getElementById("1").style.backgroundColor = "red";
+
+        document.getElementById("1").innerHTML = "jeg elsker å kode :)";
+      }
+      function updateTextField(element) {
+        var textField = document.getElementById("textField");
+        textField.value += element.innerHTML;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .box {
+      height: 100px;
+      width: 100px;
+    }
+    .pink {
+      background-color: pink;
+    }
+    .red {
+      background-color: red;
+    }
+    .blue {
+      background-color: blue;
+    }
+  </style>
+  <body>
+    <div>
+      <!-- <div class="pink box" id="pinkBox" onclick="changeColor()"></div>
+    <div class="red box" id="redBox" onclick="changeColor()"></div>
+    <div class="blue box" id="blueBox" onclick="changeColor()"></div> -->
+      <div class="pink box" onclick="changeColor(this)"></div>
+      <div class="red box" onclick="changeColor(this)"></div>
+      <div class="blue box" onclick="changeColor(this)"></div>
+    </div>
+  </body>
+  <script>
+    function changeColor(element) {
+      if (!element.hasOwnProperty("originalColor")) {
+        // Store the original color and content
+        element.originalColor = element.style.backgroundColor;
+        element.originalContent = element.innerHTML;
+
+        // Change to new color and content
+        element.style.backgroundColor = "gold";
+        element.innerHTML = "Hello";
+      } else {
+        // Reset to original color and content
+        element.style.backgroundColor = element.originalColor;
+        element.innerHTML = element.originalContent;
+
+        // Remove the stored properties
+        delete element.originalColor;
+        delete element.originalContent;
+      }
+    }
+
+    // function changeColor(elementId) {
+    //   document.getElementById("pinkBox").style.backgroundColor = "red";
+    // }
+    // function changeColor(element) {
+    //   element.style.backgroundColor = "gold";
+    //   element.innerHTML = "Hello";
+    // }
+  </script>
+</html>

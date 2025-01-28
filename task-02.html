@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fargevelger</title>
+    <link rel="stylesheet" href="/css/styleex02.css" />
+  </head>
+  <body>
+    <h1>Velg en farge og endre bakgrunnen!</h1>
+
+    <!-- Fargerike bokser -->
+    <div id="colorContainer">
+      <div
+        id="colorBox1"
+        class="color-box"
+        data-color="red"
+        style="background-color: red"
+      ></div>
+      <div
+        id="colorBox2"
+        class="color-box"
+        data-color="green"
+        style="background-color: green"
+      ></div>
+      <div
+        id="colorBox3"
+        class="color-box"
+        data-color="blue"
+        style="background-color: blue"
+      ></div>
+    </div>
+
+    <!-- Przycisk do zmiany tła -->
+    <button id="changeBackground">Endre sidebakgrunn</button>
+
+    <!-- Docelowe divy -->
+    <div id="targetContainer">
+      <div id="targetDiv1" class="target-div">Div 1</div>
+      <div id="targetDiv2" class="target-div">Div 2</div>
+    </div>
+
+    <script src="./js/task-02.js"></script>
+  </body>
+</html>
