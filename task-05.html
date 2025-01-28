@@ -4,98 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tastatur</title>
-    <style>
-      .phone {
-        width: 350px;
-        height: 700px;
-        margin: 50px auto;
-        padding: 20px;
-        background: linear-gradient(to bottom, #f8f8f8, #e1e1e1);
-        border-radius: 30px;
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      #textField {
-        width: 90%;
-        height: 600px;
-        padding: 15px;
-        font-size: 28px;
-        border-radius: 20px;
-        border: 1px solid #ccc;
-        margin-bottom: 20px;
-        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
-        text-align: left;
-        overflow-y: auto;
-        color: gray;
-        background-color: black;
-      }
-
-      .keyboard {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 90%;
-      }
-
-      .key {
-        background-color: #f0f0f0;
-        border: none;
-        border-radius: 8px;
-        width: 35px;
-        height: 35px;
-        margin: 4px;
-        font-size: 16px;
-        font-weight: bold;
-        text-align: center;
-        line-height: 35px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-
-      .key:hover {
-        background-color: #e0e0e0;
-      }
-
-      .key:active {
-        background-color: #d0d0d0;
-        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.2);
-      }
-
-      .key.backspace {
-        background-color: #f77;
-      }
-
-      .key.enter {
-        background-color: #77f;
-        color: white;
-      }
-
-      .key.space {
-        width: 110px;
-      }
-
-      .key.shift {
-        background-color: #88f;
-        color: white;
-      }
-
-      .key.backspace:hover {
-        background-color: #f55;
-      }
-
-      .key.enter:hover {
-        background-color: #559;
-      }
-
-      .key.shift:hover {
-        background-color: #66d;
-      }
-    </style>
+    <link rel="stylesheet" href="./css/style05.css" />
   </head>
 
   <body>
@@ -143,46 +52,6 @@
       </div>
     </div>
 
-    <script>
-      let isShiftActive = false;
-
-      function updateTextField(element) {
-        var textField = document.getElementById("textField");
-        let keyValue = element.innerHTML;
-        if (isShiftActive) {
-          keyValue = keyValue.toUpperCase();
-          deactivateShift();
-        } else {
-          keyValue = keyValue.toLowerCase();
-        }
-        textField.value += keyValue;
-      }
-
-      function addSpace() {
-        var textField = document.getElementById("textField");
-        textField.value += " ";
-      }
-
-      function backspace() {
-        var textField = document.getElementById("textField");
-        textField.value = textField.value.slice(0, -1);
-      }
-
-      function clearText() {
-        document.getElementById("textField").value = "";
-      }
-
-      function toggleShift() {
-        isShiftActive = !isShiftActive;
-        const shiftKey = document.querySelector(".key.shift");
-        shiftKey.style.backgroundColor = isShiftActive ? "#66d" : "#88f";
-      }
-
-      function deactivateShift() {
-        isShiftActive = false;
-        const shiftKey = document.querySelector(".key.shift");
-        shiftKey.style.backgroundColor = "#88f";
-      }
-    </script>
+    <script src="./js/task-05.js"></script>
   </body>
 </html>

@@ -1,6 +1,5 @@
-let selectedColor = ""; // Przechowuje wybraną nazwę koloru
+let selectedColor = "";
 
-// Obsługa wyboru koloru dla każdego boksu osobno
 const colorBox1 = document.getElementById("colorBox1");
 const colorBox2 = document.getElementById("colorBox2");
 const colorBox3 = document.getElementById("colorBox3");
@@ -12,7 +11,6 @@ colorBox3.onclick = () => selectColor(colorBox3);
 function selectColor(colorBoxElement) {
   selectedColor = colorBoxElement.dataset.color;
 
-  // tilbakestill rammer for alle div
   [colorBox1, colorBox2, colorBox3].forEach((box) => {
     box.style.border = "2px solid transparent";
   });
