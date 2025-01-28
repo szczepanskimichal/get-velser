@@ -3,60 +3,185 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Oppgave 'This'</title>
+    <title>Tastatur</title>
     <style>
+      .phone {
+        width: 350px;
+        height: 700px;
+        margin: 50px auto;
+        padding: 20px;
+        background: linear-gradient(to bottom, #f8f8f8, #e1e1e1);
+        border-radius: 30px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      #textField {
+        width: 90%;
+        height: 600px;
+        padding: 15px;
+        font-size: 28px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        overflow-y: auto;
+        color: gray;
+        background-color: black;
+      }
+
       .keyboard {
         display: flex;
         flex-wrap: wrap;
-        width: 200px;
+        justify-content: center;
+        width: 90%;
       }
+
       .key {
-        width: 50px;
-        height: 50px;
-        margin: 5px;
+        background-color: #f0f0f0;
+        border: none;
+        border-radius: 8px;
+        width: 35px;
+        height: 35px;
+        margin: 4px;
+        font-size: 16px;
+        font-weight: bold;
         text-align: center;
-        line-height: 50px;
-        background-color: lightgray;
+        line-height: 35px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         cursor: pointer;
+        transition: all 0.2s;
       }
+
       .key:hover {
-        background-color: gray;
+        background-color: #e0e0e0;
+      }
+
+      .key:active {
+        background-color: #d0d0d0;
+        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .key.backspace {
+        background-color: #f77;
+      }
+
+      .key.enter {
+        background-color: #77f;
+        color: white;
+      }
+
+      .key.space {
+        width: 110px;
+      }
+
+      .key.shift {
+        background-color: #88f;
+        color: white;
+      }
+
+      .key.backspace:hover {
+        background-color: #f55;
+      }
+
+      .key.enter:hover {
+        background-color: #559;
+      }
+
+      .key.shift:hover {
+        background-color: #66d;
       }
     </style>
   </head>
+
   <body>
-    <input
-      type="text"
-      id="textField"
-      style="width: 200px; margin-bottom: 10px"
-    />
-    <div class="keyboard">
-      <div class="key" onclick="updateTextField(this)">A</div>
-      <div class="key" onclick="updateTextField(this)">B</div>
-      <div class="key" onclick="updateTextField(this)">C</div>
-      <div class="key" onclick="updateTextField(this)">D</div>
-      <div class="key" onclick="updateTextField(this)">E</div>
-      <div class="key" onclick="updateTextField(this)">F</div>
-      <div class="key" onclick="updateTextField(this)">G</div>
-      <div class="key" onclick="updateTextField(this)">H</div>
-      <div class="key" onclick="updateTextField(this)">I</div>
-      <div class="key" onclick="updateTextField(this)">J</div>
+    <div class="phone">
+      <input
+        type="text"
+        id="textField"
+        readonly
+        placeholder="Telefonskjerm..."
+      />
+      <div class="keyboard">
+        <div class="key" onclick="updateTextField(this)">Q</div>
+        <div class="key" onclick="updateTextField(this)">W</div>
+        <div class="key" onclick="updateTextField(this)">E</div>
+        <div class="key" onclick="updateTextField(this)">R</div>
+        <div class="key" onclick="updateTextField(this)">T</div>
+        <div class="key" onclick="updateTextField(this)">Y</div>
+        <div class="key" onclick="updateTextField(this)">U</div>
+        <div class="key" onclick="updateTextField(this)">I</div>
+        <div class="key" onclick="updateTextField(this)">O</div>
+        <div class="key" onclick="updateTextField(this)">P</div>
+
+        <div class="key" onclick="updateTextField(this)">A</div>
+        <div class="key" onclick="updateTextField(this)">S</div>
+        <div class="key" onclick="updateTextField(this)">D</div>
+        <div class="key" onclick="updateTextField(this)">F</div>
+        <div class="key" onclick="updateTextField(this)">G</div>
+        <div class="key" onclick="updateTextField(this)">H</div>
+        <div class="key" onclick="updateTextField(this)">J</div>
+        <div class="key" onclick="updateTextField(this)">K</div>
+        <div class="key" onclick="updateTextField(this)">L</div>
+
+        <div class="key" onclick="updateTextField(this)">Z</div>
+        <div class="key" onclick="updateTextField(this)">X</div>
+        <div class="key" onclick="updateTextField(this)">C</div>
+        <div class="key" onclick="updateTextField(this)">V</div>
+        <div class="key" onclick="updateTextField(this)">B</div>
+        <div class="key" onclick="updateTextField(this)">N</div>
+        <div class="key" onclick="updateTextField(this)">M</div>
+
+        <div class="key shift" onclick="toggleShift()">⇧</div>
+        <div class="key backspace" onclick="backspace()">⌫</div>
+        <div class="key space" onclick="addSpace()">␣</div>
+        <div class="key enter" onclick="clearText()">⏎</div>
+      </div>
     </div>
-    <button onclick="document.getElementById('textField').value = ''">
-      Clear
-    </button>
-    <button onclick="extra()">extra knappen</button>
-    <div id="1" style="font-size: 50px; width: 200px; border-radius: 5%"></div>
 
     <script>
-      function extra() {
-        document.getElementById("1").style.backgroundColor = "red";
+      let isShiftActive = false;
 
-        document.getElementById("1").innerHTML = "jeg elsker å kode :)";
-      }
       function updateTextField(element) {
         var textField = document.getElementById("textField");
-        textField.value += element.innerHTML;
+        let keyValue = element.innerHTML;
+        if (isShiftActive) {
+          keyValue = keyValue.toUpperCase();
+          deactivateShift();
+        } else {
+          keyValue = keyValue.toLowerCase();
+        }
+        textField.value += keyValue;
+      }
+
+      function addSpace() {
+        var textField = document.getElementById("textField");
+        textField.value += " ";
+      }
+
+      function backspace() {
+        var textField = document.getElementById("textField");
+        textField.value = textField.value.slice(0, -1);
+      }
+
+      function clearText() {
+        document.getElementById("textField").value = "";
+      }
+
+      function toggleShift() {
+        isShiftActive = !isShiftActive;
+        const shiftKey = document.querySelector(".key.shift");
+        shiftKey.style.backgroundColor = isShiftActive ? "#66d" : "#88f";
+      }
+
+      function deactivateShift() {
+        isShiftActive = false;
+        const shiftKey = document.querySelector(".key.shift");
+        shiftKey.style.backgroundColor = "#88f";
       }
     </script>
   </body>
