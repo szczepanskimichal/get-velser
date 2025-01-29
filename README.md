@@ -1,1 +1,3 @@
-Dette er et samledepot med alle oppgavene fra kurset, jeg legger ut lenken senere
+Dette er et samledepot med alle oppgavene fra kurset
+
+https://szczepanskimichal.github.io/get-velser/
