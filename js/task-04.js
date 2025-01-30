@@ -1,11 +1,11 @@
-// Funkcja, która aktywuje wybrane światło
+// Funksjon som aktiverer det valgte lyset
 function setLight(light) {
-  // Najpierw usuwamy aktywne klasy z wszystkich świateł
+  // Først fjerner vi aktive klasser fra alle lysene
   document.getElementById("rodt").classList.remove("active");
   document.getElementById("orange").classList.remove("active");
   document.getElementById("gronn").classList.remove("active");
 
-  // Włączamy odpowiednie światło
+  // Vi aktiverer riktig lys
   if (light === "rodt") {
     document.getElementById("rodt").classList.add("active");
   } else if (light === "rodt+orange") {
@@ -16,25 +16,25 @@ function setLight(light) {
   }
 }
 
-// Funkcja, która uruchamia automatyczny cykl świateł
+// Funksjon som starter den automatiske lyssekvensen
 function lightTimer() {
-  setTimeout(activeRed, 1000); // Startujemy z czerwonym światłem po 1 sekundzie
+  setTimeout(activeRed, 1000); /// Vi starter med rødt lys etter 1 sekund
 }
 
-// Funkcja dla czerwonego światła
+// Funksjon for rødt lys
 function activeRed() {
   setLight("rodt");
-  setTimeout(activeRedAndOrange, 3000); // Po 3 sekundach przechodzimy do czerwono-pomarańczowego
+  setTimeout(activeRedAndOrange, 3000);
 }
 
-// Funkcja dla czerwono-pomarańczowego światła
+// Funksjon for rødt og oransje lys
 function activeRedAndOrange() {
   setLight("rodt+orange");
-  setTimeout(activeGreen, 3000); // Po 3 sekundach przechodzimy do zielonego
+  setTimeout(activeGreen, 3000);
 }
 
-// Funkcja dla zielonego światła
+// Funksjon for grønt lys
 function activeGreen() {
   setLight("gronn");
-  setTimeout(activeRed, 3000); // Po 3 sekundach wracamy do czerwonego
+  setTimeout(activeRed, 3000);
 }

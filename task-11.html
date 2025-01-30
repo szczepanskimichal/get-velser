@@ -5,58 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <style>
-    .box {
-      height: 100px;
-      width: 100px;
-    }
-    .pink {
-      background-color: pink;
-    }
-    .red {
-      background-color: red;
-    }
-    .blue {
-      background-color: blue;
-    }
-  </style>
   <body>
-    <div>
-      <!-- <div class="pink box" id="pinkBox" onclick="changeColor()"></div>
-    <div class="red box" id="redBox" onclick="changeColor()"></div>
-    <div class="blue box" id="blueBox" onclick="changeColor()"></div> -->
-      <div class="pink box" onclick="changeColor(this)"></div>
-      <div class="red box" onclick="changeColor(this)"></div>
-      <div class="blue box" onclick="changeColor(this)"></div>
-    </div>
+    <div id="mainDiv"></div>
+    <button onclick="createAndShowHtml('blue', 'hallo world', 11)">
+      Create blue div
+    </button>
+    <button onclick="createAndShowHtml('red', 'hei', 17)">
+      Create red div
+    </button>
+    <button onclick="createAndShowHtml('green', 'hello', 23)">
+      Create green div
+    </button>
+    <script>
+      function createAndShowHtml(color, text, size) {
+        document.getElementById("mainDiv").innerHTML = `
+          <div ${createDtyle(color, fontSize)}>${text}</div>
+        `;
+      }
+
+      function createDtyle(color, fontSize) {
+        return `style=" ${createBackraoundColor(color)}  ${createFontSizr(
+          fontSize
+        )}px"`;
+      }
+
+      function createBackraoundColor(color) {
+        return `background-color: ${color};`;
+      }
+
+      function createFontSizr(fontSize) {
+        return `font-size: ${fontSize};`;
+      }
+    </script>
   </body>
+</html>
+
+
+
+
+
+<body>
+  <h1>Move Items Between Containers</h1>
+
+  <button onclick="openInventory()">Show Items</button>
+  <button onclick="clearBasket()">Clear Basket</button>
+
+  <div id="inventory"></div>
+  <h2>Basket:</h2>
+  <div id="basket"></div>
+
   <script>
-    function changeColor(element) {
-      if (!element.hasOwnProperty("originalColor")) {
-        // Store the original color and content
-        element.originalColor = element.style.backgroundColor;
-        element.originalContent = element.innerHTML;
+    // Open inventory with item elements
+    function openInventory() {
+      const inventory = document.getElementById("inventory");
+      inventory.innerHTML = ''; // Clear any previous content
 
-        // Change to new color and content
-        element.style.backgroundColor = "gold";
-        element.innerHTML = "Hello";
-      } else {
-        // Reset to original color and content
-        element.style.backgroundColor = element.originalColor;
-        element.innerHTML = element.originalContent;
+      // Generate 9 item divs
+      for (let i = 1; i <= 9; i++) {
+        const cartItem = document.createElement("div");
+        cartItem.classList.add("cart");
+        cartItem.textContent = `Item ${i}`;
+        
+        //  item to basket or back
+        cartItem.onclick = function () {
+          moveItem(cartItem);
+        };
 
-        // Remove the stored properties
-        delete element.originalColor;
-        delete element.originalContent;
+        inventory.appendChild(cartItem);
       }
     }
 
-    // function changeColor(elementId) {
-    //   document.getElementById("pinkBox").style.backgroundColor = "red";
-    // }
-    // function changeColor(element) {
-    //   element.style.backgroundColor = "gold";
-    //   element.innerHTML = "Hello";
-    // }
+    //  move item 
+    function moveItem(item) {
+      const parentDiv = item.parentNode;
+      const basket = document.getElementById("basket");
+      const inventory = document.getElementById("inventory");
+
+      if (parentDiv === inventory) {
+        basket.appendChild(item);
+      } else {
+        inventory.appendChild(item);
+      }
+    }
+
+    //  basket
+    function clearBasket() {
+      const basket = document.getElementById("basket");
+      basket.innerHTML = ''; 
+    }
   </script>
+</body>
 </html>

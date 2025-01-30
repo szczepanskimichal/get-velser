@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Funksjoner med returverdi</title>
+  </head>
+  <body>
+    <div id="mainDiv"></div>
+    <button
+      onclick="createAndShowHtml('green','hello world', 40, 50, 5, 'solid')"
+    >
+      Test1
+    </button>
+    <button
+      onclick="createAndShowHtml('red','velkommen', 200, 100, 10, 'solid')"
+    >
+      Test2
+    </button>
+    <button
+      onclick="createAndShowHtml('blue','hello world', 500,100, 5, 'solid')"
+    >
+      Test3
+    </button>
+    <button onclick="reset()">reset</button>
+    <script>
+      function createAndShowHtml(
+        color,
+        text,
+        width,
+        fontSize,
+        borderSize,
+        borderStyle
+      ) {
+        document.getElementById("mainDiv").innerHTML = `
+        <div ${createStyle(
+          color,
+          text,
+          width,
+          fontSize,
+          borderSize,
+          borderStyle
+        )}>{text}</div>
+        `;
+      }
+      function createStyle(
+        color,
+        text,
+        width,
+        fontSize,
+        borderSize,
+        borderStyle
+      ) {
+        return ` 
+        style="${createBackgroundColor(color)} ${createWidth(
+          width
+        )} ${createFontSize(fontSize)} ${createBorder(
+          borderSize,
+          borderStyle
+        )}"`;
+      }
+      function createBackgroundColor(color) {
+        return `background-color: ${color};`;
+      }
+      function createWidth(width) {
+        return `width: ${width}px;`;
+      }
+      function createFontSize(fontSize) {
+        return `font-size: ${fontSize}px;`;
+      }
+      function createBorder(borderSize, borderStyle) {
+        return `border: ${borderSize}px ${borderStyle} black;`;
+      }
+      function reset() {
+        document.getElementById("mainDiv").innerHTML = "";
+      }
+    </script>
+  </body>
+</html>

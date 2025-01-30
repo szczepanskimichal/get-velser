@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Porównywanie Liczb</title>
+  </head>
+  <body>
+    <div id="points">Punkty: 0</div>
+    <div id="firstNum"></div>
+    <input type="text" id="input" placeholder="skriv >, < or =" />
+    <div id="secondNum"></div>
+    <button onclick="submit()">Submit</button>
+    <button onclick="reset()">Reset</button>
+
+    <script>
+      let firstNum = 0;
+      let secondNum = 0;
+      let points = 0;
+
+      function reset() {
+        updateNumbers();
+        document.getElementById("input").value = "";
+      }
+
+      function updateNumbers() {
+        firstNum = getRandomNumber();
+        secondNum = getRandomNumber();
+        document.getElementById("firstNum").innerHTML = firstNum;
+        document.getElementById("secondNum").innerHTML = secondNum;
+      }
+
+      function getRandomNumber() {
+        return Math.floor(Math.random() * 10) + 1;
+      }
+
+      function submit() {
+        const input = document.getElementById("input").value.trim();
+        let correctAnswer = "";
+
+        if (firstNum > secondNum) {
+          correctAnswer = ">";
+        } else if (firstNum < secondNum) {
+          correctAnswer = "<";
+        } else {
+          correctAnswer = "=";
+        }
+
+        if (input === correctAnswer) {
+          points++;
+          alert("Riktig svar!");
+        } else {
+          points--;
+          alert(`Feil svar. Riktig tegn er: ${correctAnswer}`);
+        }
+
+        document.getElementById("points").innerHTML = `Poeng: ${points}`;
+      }
+
+      reset();
+    </script>
+  </body>
+  <style>
+    input {
+      width: 105px;
+      margin: 5px 0;
+    }
+  </style>
+</html>
