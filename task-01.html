@@ -3,9 +3,354 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>1</title>
+    <link rel="stylesheet" href="./css/style01.css" />
+    <style>
+      /* #description #image-container {
+        display: none;
+      } */
+
+      .layout2 {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .layout3 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        padding: 10px;
+        gap: 10px; /* Dodaj odstęp między kartami */
+      }
+
+      .layout4 {
+        display: grid;
+        grid-template-columns: repeat(
+          2,
+          1fr
+        ); /* Dwie kolumny o równej szerokości */
+        gap: 10px; /* Dodaj odstęp między kartami */
+        padding: 10px;
+      }
+
+      .card {
+        flex: 1; /* Każda karta zajmuje równą szerokość */
+        min-width: 200px; /* Minimalna szerokość karty */
+        max-width: 300px; /* Maksymalna szerokość karty */
+        box-sizing: border-box; /* Uwzględnia padding i border w szerokości */
+        padding: 10px; /* Dodaj padding wewnątrz kart */
+        border: 1px solid #ccc; /* Dodaj obramowanie kart */
+        border-radius: 5px; /* Zaokrąglone rogi */
+        background-color: #f9f9f9; /* Kolor tła kart */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Dodaj cień dla kart */
+      }
+    </style>
   </head>
-  <body>
-    <p>inhold kommer !!!</p>
+  <body class="button-container">
+    <button id="ingenLayout" onclick="showIngen()">Ingen layout</button>
+    <button id="verikal" onclick="showVertikal()">Vertikal layout</button>
+    <button id="horizontal" onclick="showHorizontal()">
+      Horizontal layout
+    </button>
+    <button id="grid" onclick="showGrid()">Grid layout</button>
+
+    <h1>Eksempel 1</h1>
+    <div id="container">
+      <div class="card">
+        <div class="header tool" onclick="showVerktøy()">Verktøy</div>
+        <div id="description1" class="descriptionVerktøy"></div>
+      </div>
+      <div class="card">
+        <div class="header html" onclick="showHtml()">HTML</div>
+        <div class="description Html" id="descriptionHtml"></div>
+      </div>
+      <div class="card" onclick="showCss()">
+        <div class="header css">CSS</div>
+        <div class="description" id="descriptionCss"></div>
+      </div>
+      <div class="card" onclick="showJs()">
+        <div class="header javascript">JavaScript</div>
+        <div id="js" class="description"></div>
+      </div>
+
+      <div class="card">
+        <div class="header doll" onclick="show()">Hode,kropp og ben</div>
+        <div id="clear" class="description">
+          <div id="kvinne" onclick="show()"></div>
+          <div id="kropp"></div>
+          <div id="ben"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function showIngen() {
+        const container = document.getElementById("container");
+        container.className = "";
+      }
+      function showVertikal() {
+        document.getElementById("container").classList = [];
+        document.getElementById("container").classList.add("layout2");
+      }
+      function showHorizontal() {
+        document.getElementById("container").classList = [];
+        document.getElementById("container").classList.add("layout3");
+      }
+      function showGrid() {
+        document.getElementById("container").classList = [];
+        document.getElementById("container").classList.add("layout4");
+      }
+
+      function showVerktøy() {
+        tomAlt();
+        document.getElementById("description1").innerHTML = `
+                                    <div class="description">
+                                      <div>
+                                        De to viktigste verktøyene vi skal bruke er disse:
+                                        <ul>
+                                          <li>
+                                            Koderedigeringsprogrammet
+                                            <a href="https://code.visualstudio.com/" target="new">
+                                              Visual Studio Code
+                                            </a>
+                                            <br />Vi skal bruke noen <i>extensions:</i>
+                                            <ul>
+                                              <li>JavaScript-booster</li>
+                                              <li>es6-string-html</li>
+                                              <li>live-server</li>
+                                              <li>live-share</li>
+                                            </ul>
+                                          </li>
+                                          <li>
+                                            Nettleseren
+                                            <a href="https://www.google.com/intl/no/chrome/" target="new">
+                                              Google Chrome
+                                            </a>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>`;
+      }
+
+      function showHtml() {
+        tomAlt();
+        document.getElementById("descriptionHtml").innerHTML = `
+                                    <div class="description">
+                                      <p>Vi bruker HTML til å definere et dokument.</p>
+                                      <ul>
+                                        <li>Tagger for grunnleggende oppsett av en HTML-fil</li>
+                                        <li>Tagger for grunnleggende formatering av tekst</li>
+                                        <li>&lt;div&gt;</li>
+                                        <li>&lt;input type=&quot;text&quot;&gt;</li>
+                                        <li>&lt;button&gt;</li>
+                                        <li>
+                                          <a href="https://www.w3schools.com/html/default.asp" target="new">
+                                            W3Schools HTML Tutorial
+                                          </a>
+                                        </li>
+                                        <li>
+                                          <a href="https://www.w3schools.com/tags/default.asp" target="new">
+                                            W3Schools HTML Reference
+                                          </a>
+                                        </li>
+                                      </ul>
+                                    </div>`;
+      }
+
+      function showCss() {
+        tomAlt();
+        document.getElementById("descriptionCss").innerHTML = `
+                                    <p>
+                                      Vi bruker CSS til å <i>style</i> et dokument, altså farger, fonter,
+                                      utseende og lignende.
+                                    </p>
+                                    <ul>
+                                      <li>background-color</li>
+                                      <li>color</li>
+                                      <li>padding</li>
+                                      <li>margin</li>
+                                      <li>border</li>
+                                      <li>text-align</li>
+                                      <li>font-size</li>
+                                      <li>
+                                        <a
+                                          href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
+                                          target="new">
+                                          Flexbox
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a
+                                          href="https://css-tricks.com/snippets/css/complete-guide-grid/"
+                                          target="new">
+                                          Grid
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="https://www.w3schools.com/css/default.asp" target="new">
+                                          W3Schools CSS Tutorial
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="https://www.w3schools.com/cssref/index.php" target="new">
+                                          W3Schools CSS Reference
+                                        </a>
+                                      </li>
+                                    </ul>`;
+      }
+
+      function showJs() {
+        tomAlt();
+        document.getElementById("js").innerHTML = `
+                                    <p>
+                                      Det viktigste vi skal lære er programmeringsspråket JavaScript. Vi
+                                      skal lære grunnleggende programmering ved å manipulere HTML- og
+                                      CSS-kode på en nettside ved hjelp av JavaScript.
+                                    </p>
+                                    <ul>
+                                      <li>
+                                        Det finnes en W3Schools JavaScript Tutorial, men her anbefaler vi
+                                        heller å følge kurset vårt på Moodle.
+                                      </li>
+                                      <li>
+                                        <a href="https://www.w3schools.com/jsref/default.asp" target="new">
+                                          W3Schools JavaScript Reference
+                                        </a>
+                                      </li>
+                                    </ul>`;
+      }
+      // show();
+      function show() {
+        showHode();
+
+        showBody();
+        showBen();
+      }
+
+      function showBen() {
+        document.getElementById("ben").innerHTML = `
+        <div class="image-container">
+        <button onClick="showBen4()">◀</button>
+        <img src="img/legs1.png" />
+        <button onClick="showBen2()">▶</button>
+        </div>
+        `;
+      }
+      function showBen2() {
+        document.getElementById("ben").innerHTML = `
+        <div class="image-container">
+        <button onClick="showBen()">◀</button>
+        <img src="img/legs2.png" />
+        <button onClick="showBen3()">▶</button>
+        </div>
+        `;
+      }
+      function showBen3() {
+        document.getElementById("ben").innerHTML = `
+        <div class="image-container">
+        <button onClick="showBen2()">◀</button>
+        <img src="img/legs3.png" />
+        <button onClick="showBen4()">▶</button>
+        </div>
+        `;
+      }
+      function showBen4() {
+        document.getElementById("ben").innerHTML = `
+        <div class="image-container">
+        <button onClick="showBen3()">◀</button>
+        <img src="img/legs4.png" />
+        <button onClick="showBen()">▶</button>
+        </div>
+        `;
+      }
+
+      function showBody() {
+        document.getElementById("kropp").innerHTML = `
+                    <div class="image-container">
+                    <button onClick="showBody4()">◀</button>
+                    <img src="img/body1.png" />
+                    <button onClick="showBody2()">▶</button>
+                  </div>
+                  `;
+      }
+      function showBody2() {
+        document.getElementById("kropp").innerHTML = `
+                    <div class="image-container">
+                    <button onClick="showBody()">◀</button>
+                    <img src="img/body2.png" />
+                    <button onClick="showBody3()">▶</button>
+                  `;
+      }
+      function showBody3() {
+        document.getElementById("kropp").innerHTML = `
+              <div class="image-container">
+              <button onClick="showBody2()">◀</button>
+              <img src="img/body3.png" />
+              <button onClick="showBody4()">▶</button>
+            </div>
+              `;
+      }
+      function showBody4() {
+        document.getElementById("kropp").innerHTML = `
+              <div class="image-container">
+              <button onClick="showBody3()">◀</button>
+              <img src="img/body4.png" />
+              <button onClick="showBody()">▶</button>
+            </div>
+            `;
+      }
+
+      function showHode() {
+        document.getElementById("kvinne").innerHTML = `
+                      <div class="image-container">
+                        <button onClick="showHode4()">◀</button>
+                        <img src="img/head1.png" />
+                        <button onClick="showHode2()">▶</button>
+                      </div>
+
+                     `;
+      }
+
+      function showHode2() {
+        document.getElementById("kvinne").innerHTML = `
+                      <div class="image-container">
+                        <button onClick="showHode()">◀</button>
+                        <img src="img/head2.png" />
+                        <button onClick="showHode3()">▶</button>
+                      </div>
+
+                      `;
+      }
+
+      function showHode3() {
+        document.getElementById("kvinne").innerHTML = `
+                      <div class="image-container">
+                        <button onClick="showHode2()">◀</button>
+                        <img src="img/head3.png" />
+                        <button onClick="showHode4()">▶</button>
+                      </div>
+
+                     `;
+      }
+
+      function showHode4() {
+        document.getElementById("kvinne").innerHTML = `
+                      <div class="image-container">
+                        <button onClick="showHode3()">◀</button>
+                        <img src="img/head4.png" />
+                        <button onClick="showHode()">▶</button>
+                      </div>
+
+                     `;
+      }
+
+      function tomAlt() {
+        document.getElementById("description1").innerHTML = "";
+        document.getElementById("descriptionHtml").innerHTML = "";
+        document.getElementById("descriptionCss").innerHTML = "";
+        document.getElementById("js").innerHTML = "";
+        document.getElementById("clear").classList = [];
+      }
+    </script>
   </body>
 </html>
