@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oppgave - Adjektivhistorie</title>
+    <style>
+      #group {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // Model
+      let name = "...her kommer et navn";
+      let place = "...her kommer et sted";
+      let food = "...her kommer en matrett";
+
+      // View
+      function updateView() {
+        let html = ` 
+        <div id="group">
+          <div>hei jeg heter </div>
+          <div id="nameDiv">${name}</div>
+        </div>
+        <div id="group">
+          <div>Jeg bor i</div>
+          <div id="placeDiv">${place}</div>
+        </div>
+        <div id="group">
+          <div>Min favorittmat er</div>
+          <div id="foodDiv">${food}</div>
+        </div>
+        <button onclick="setFields()">Klikk her for å sette verdien</button>
+        <input type="text" id="nameInput" placeholder='skriv name her'/>
+        <input type="text" id="placeInput" placeholder='skriv sted her'/>
+        <input type="text" id="foodInput" placeholder='skriv mat her'/>
+        `;
+
+        document.getElementById("app").innerHTML = html;
+      }
+
+      // Controller
+      function setFields() {
+        name = document.getElementById("nameInput").value;
+        place = document.getElementById("placeInput").value;
+        food = document.getElementById("foodInput").value;
+        updateView();
+      }
+
+      // Initial call to set fields
+      updateView();
+    </script>
+  </body>
+</html>
