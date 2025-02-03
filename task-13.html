@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // Model
+      var points = 0;
+      var pointsPerClick = 1;
+      var smileyIndex = 0;
+
+      // View
+      function updateView() {
+        var smiley = smileyIndex === 0 ? "😊" : "😍";
+        document.getElementById("app").innerHTML = `
+          <div id='image' onclick='doClick()' style='font-size: 50px; cursor: pointer;'>${smiley}</div>
+          <div id='pointsInfo'>Points: ${points}</div>
+          <button onclick='buyUpgrade()'>Kjøp oppgradering (10 poeng)</button>
+        `;
+      }
+
+      // Controller
+      function doClick() {
+        points += pointsPerClick;
+        console.log(points + " Dette er points");
+        smileyIndex = 1 - smileyIndex;
+        updateView();
+      }
+
+      function buyUpgrade() {
+        if (points >= 10) {
+          points -= 10;
+          pointsPerClick++;
+          updateView();
+        }
+      }
+
+      // Initial call to set fields
+      updateView();
+    </script>
+  </body>
+</html>
