@@ -12,14 +12,20 @@
     </div>
     <div id="output"></div>
     <script>
+      // function capitalizeFirstLetter(inputString) {
+      //   if (inputString) {
+      //     if (inputString[0].toLowerCase() === inputString[0]) {
+      //       return inputString[0].toUpperCase() + inputString.slice(1);
+      //     }
+      //     return inputString;
+      //   }
+      //   return inputString;
+      // }
+
       function capitalizeFirstLetter(inputString) {
-        if (inputString) {
-          if (inputString[0].toLowerCase() === inputString[0]) {
-            return inputString[0].toUpperCase() + inputString.slice(1);
-          }
-          return inputString;
-        }
-        return inputString;
+        return inputString
+          ? inputString.charAt(0).toUpperCase() + inputString.slice(1)
+          : inputString;
       }
 
       function displayCapitalizedString() {

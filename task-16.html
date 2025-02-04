@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Barnehage list</h1>
+    <h2>Nytt barn</h2>
+    <div>
+      <input type="text" id="name" placeholder="Navn" />
+      <input type="number" id="age" placeholder="Alder" />
+      <button onclick="addKid()">Legg til</button>
+    </div>
+    <h2>Barne liste</h2>
+    <ul id="list"></ul>
+    <button onclick="sjekkBarnaSomSta()">
+      Sjekk barna som er 6 år eller eldre
+    </button>
+    <p id="result"></p>
+
+    <script>
+      const children = [
+        { name: "Ola", age: 5 },
+        { name: "Kari", age: 4 },
+        { name: "Per", age: 6 },
+        { name: "Pål", age: 7 },
+      ];
+
+      const list = document.getElementById("list");
+
+      function addKid() {
+        const name = document.getElementById("name").value;
+        const age = parseInt(document.getElementById("age").value, 10);
+        if (name && !isNaN(age)) {
+          children.push({ name, age });
+          updateList();
+        }
+      }
+
+      function updateList() {
+        list.innerHTML = "";
+        children.forEach((child) => {
+          const li = document.createElement("li");
+          li.innerHTML = `${child.name} er ${child.age} år gammel`;
+          list.appendChild(li);
+        });
+      }
+
+      function sjekkBarnaSomSta() {
+        const count = children.filter((child) => child.age >= 6).length;
+        document.getElementById(
+          "result"
+        ).innerHTML = `Det er ${count} barn som er 6 år eller eldre`;
+      }
+
+      // Initial call to render the list
+      updateList();
+    </script>
+  </body>
+</html>
