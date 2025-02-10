@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generer Tilfeldige Tall</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f9;
+        margin: 0;
+      }
+      .container {
+        text-align: center;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        max-height: 80vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      h1 {
+        margin-bottom: 20px;
+      }
+      button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: #28a745;
+        color: white;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+      #result {
+        margin-top: 20px;
+      }
+      #history {
+        margin-top: 20px;
+        overflow-y: auto;
+        flex-grow: 1;
+        max-height: 200px;
+      }
+      #winMessage {
+        background-color: #ffeb3b;
+        color: #4caf50;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-size: 18px;
+        font-weight: bold;
+        display: none;
+        animation: fadeIn 1s ease-out;
+        margin-top: 20px;
+      }
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes explosion {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+          background-color: #ffeb3b;
+          color: #4caf50;
+        }
+        20% {
+          transform: scale(1.2);
+          background-color: #ff9800;
+        }
+        40% {
+          transform: scale(1.5);
+          background-color: #f44336;
+          color: white;
+        }
+        60% {
+          transform: scale(2);
+          background-color: #f44336;
+          opacity: 0.7;
+        }
+        80% {
+          transform: scale(2.5);
+          opacity: 0.3;
+        }
+        100% {
+          transform: scale(0);
+          opacity: 0;
+          background-color: transparent;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Generer Tilfeldige Tall</h1>
+      <button onclick="generateRandomNumbers()">Generer Tall</button>
+      <!-- <button onclick="clearResults()">Clear</button> -->
+      <!-- Clear button -->
+      <div id="result"></div>
+      <div id="history"></div>
+      <div id="winMessage">Gratulerer! Tallene er like!</div>
+    </div>
+
+    <script>
+      let attempts = 0;
+
+      function generateRandomNumbers() {
+        let number1 = Math.floor(Math.random() * 20) + 1;
+        let number2 = Math.floor(Math.random() * 20) + 1;
+        const resultDiv = document.getElementById("result");
+        const historyDiv = document.getElementById("history");
+        const winMessageDiv = document.getElementById("winMessage");
+
+        attempts++;
+        const message = `Runde ${attempts}: Tallene er ${number1} og ${number2}`;
+        console.log(message);
+        resultDiv.innerHTML = `<p>${message}</p>`;
+        historyDiv.innerHTML += `<p>${message}</p>`;
+
+        // Check if the numbers are equal
+        if (number1 === number2) {
+          const equalMessage = `Gratulerer! Tallene er like: ${number1}`;
+          console.log(equalMessage);
+          resultDiv.innerHTML += `<p>${equalMessage}</p>`;
+          historyDiv.innerHTML += `<p>${equalMessage}</p>`;
+
+          // Show the win message with animation
+          winMessageDiv.style.display = "block";
+          winMessageDiv.style.animation = "fadeIn 1s ease-out"; // Fade-in effect
+
+          // Trigger explosion animation after 5 seconds
+          setTimeout(() => {
+            winMessageDiv.style.animation = "explosion 2s ease-out"; // Explosion effect
+          }, 5000); // Start explosion after 5 seconds
+
+          // Reset the game after explosion
+          setTimeout(() => {
+            clearResults(); // Reset the game after explosion
+          }, 7000); // Delay to allow the explosion to complete before reset
+        }
+      }
+
+      function clearResults() {
+        const resultDiv = document.getElementById("result");
+        const historyDiv = document.getElementById("history");
+        const winMessageDiv = document.getElementById("winMessage");
+
+        resultDiv.innerHTML = ""; // Clear the result div
+        historyDiv.innerHTML = ""; // Clear the history div
+        winMessageDiv.style.display = "none"; // Hide the win message
+        attempts = 0; // Reset attempts
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Telle Vokaler og Reverser Tekst</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f9;
+        margin: 0;
+      }
+      .container {
+        text-align: center;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        margin-bottom: 20px;
+      }
+      input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 200px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: #28a745;
+        color: white;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+      #result {
+        font-size: 18px;
+        color: #333;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Telle Vokaler og Reverser Tekst</h1>
+      <input type="text" id="inputText" placeholder="Skriv noe her..." />
+      <button onclick="countVowels()">Tell Vokaler</button>
+      <button onclick="reverseText()">Pokaż Odwrotnie</button>
+      <button onclick="clearFields()">Clear</button>
+      <div id="result"></div>
+    </div>
+
+    <script>
+      // Funkcja licząca ilość wystąpień każdej z samogłosk
+      function countVowels() {
+        let text = document.getElementById("inputText").value.toLowerCase();
+
+        // Initialiserer tellerne for hver vokal
+        let aCounter = 0;
+        let eCounter = 0;
+        let iCounter = 0;
+        let oCounter = 0;
+        let uCounter = 0;
+        let yCounter = 0;
+        let æCounter = 0;
+        let øCounter = 0;
+        let åCounter = 0;
+
+        // Løkke gjennom teksten og sjekk for vokaler
+        for (let i = 0; i < text.length; i++) {
+          if (text[i] === "a") aCounter++;
+          else if (text[i] === "e") eCounter++;
+          else if (text[i] === "i") iCounter++;
+          else if (text[i] === "o") oCounter++;
+          else if (text[i] === "u") uCounter++;
+          else if (text[i] === "y") yCounter++;
+          else if (text[i] === "æ") æCounter++;
+          else if (text[i] === "ø") øCounter++;
+          else if (text[i] === "å") åCounter++;
+        }
+
+        // Resultat visning
+        document.getElementById("result").innerHTML = `
+        A: ${aCounter}<br>
+        E: ${eCounter}<br>
+        I: ${iCounter}<br>
+        O: ${oCounter}<br>
+        U: ${uCounter}<br>
+        Y: ${yCounter}<br>
+        Æ: ${æCounter}<br>
+        Ø: ${øCounter}<br>
+        Å: ${åCounter}
+      `;
+      }
+
+      // Funkcja odwracająca tekst
+      function reverseText() {
+        let text = document.getElementById("inputText").value;
+        let reversedText = "";
+
+        // Bruk en for-løkke for å reversere teksten
+        for (let i = text.length - 1; i >= 0; i--) {
+          reversedText += text[i];
+        }
+
+        // Vis resultatet
+        document.getElementById(
+          "result"
+        ).innerText = `Reversert tekst: ${reversedText}`;
+      }
+
+      // Funkcja czyszcząca wszystkie pola
+      function clearFields() {
+        document.getElementById("inputText").value = ""; // Czyści pole wejściowe
+        document.getElementById("result").innerHTML = ""; // Czyści wynik
+      }
+    </script>
+  </body>
+</html>

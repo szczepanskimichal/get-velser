@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2-Gangen i JavaScript</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f9;
+        margin: 0;
+      }
+      .container {
+        text-align: center;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        margin-bottom: 20px;
+      }
+      #result {
+        font-size: 18px;
+        color: #333;
+        font-weight: bold;
+      }
+      input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 100px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: #28a745;
+        color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>2-Gangen i JavaScript</h1>
+      <p>Oppgi et tall for å se 2-gangen:</p>
+      <input type="number" id="inputNumber" placeholder="1" min="1" />
+      <button onclick="printTwoTimes()">Vis 2-gangen</button>
+      <div id="result"></div>
+    </div>
+
+    <script>
+      const printTwoTimes = () => {
+        //tall fra input
+        const inputValue = document.getElementById("inputNumber").value;
+        const number = parseInt(inputValue);
+
+        // Sjekk om tallet er gyldig
+        if (isNaN(number) || number < 1) {
+          document.getElementById("result").textContent =
+            "Vennligst skriv inn et gyldig tall.";
+          return;
+        }
+
+        let result = [];
+        // Lag 2-gangen opp til det angitte tallet
+        for (let i = 1; i <= number; i++) {
+          result.push(i * 2);
+        }
+        document.getElementById("result").textContent = result.join(", ");
+      };
+    </script>
+  </body>
+</html>
