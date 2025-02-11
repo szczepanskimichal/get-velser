@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handlekurv</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .container {
+        text-align: center;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        position: relative;
+      }
+      input {
+        padding: 10px;
+        width: 70%;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        background: #f1f1f1;
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      li:hover {
+        background: #ffdddd;
+      }
+      .cart-status {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        justify-content: center;
+      }
+      .cart-icon {
+        background: #28a745;
+        color: white;
+        padding: 10px;
+        border-radius: 50%;
+        font-size: 20px;
+        margin-right: 10px;
+      }
+      .cart-counter {
+        font-weight: bold;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Handlekurv</h1>
+      <input type="text" id="productInput" placeholder="Skriv inn produkt" />
+      <button onclick="addToCart()">Legg til i handlekurv</button>
+      <ul id="cartList"></ul>
+
+      <!-- Handlekurv-status -->
+      <div class="cart-status">
+        <div class="cart-icon">🛒</div>
+        <div class="cart-counter">Ingen varer i handlekurven</div>
+      </div>
+    </div>
+
+    <script>
+      const cart = []; // Handlekurv-array
+      const cartCounter = document.querySelector(".cart-counter");
+
+      function addToCart() {
+        const productInput = document.getElementById("productInput");
+        const productName = productInput.value.trim();
+
+        if (productName) {
+          cart.push(productName); // Legger til produkt i handlekurven
+          updateCartView(); // Oppdaterer visningen
+          updateCartCounter(); // Oppdaterer antall varer
+          productInput.value = ""; // Tømmer input-feltet
+        } else {
+          alert("Vennligst skriv inn et produkt.");
+        }
+      }
+
+      function updateCartView() {
+        const cartList = document.getElementById("cartList");
+        cartList.innerHTML = ""; // Tømmer eksisterende liste
+
+        for (let i = 0; i < cart.length; i++) {
+          const listItem = document.createElement("li");
+          listItem.textContent = `${i + 1}. ${cart[i]}`;
+
+          // Legg til klikk-hendelse for å fjerne produkt
+          listItem.addEventListener("click", () => {
+            removeFromCart(i);
+          });
+
+          cartList.appendChild(listItem);
+        }
+      }
+
+      function updateCartCounter() {
+        const count = cart.length;
+        cartCounter.textContent =
+          count > 0
+            ? `Du har ${count} ${count === 1 ? "vare" : "varer"} i handlekurven`
+            : "Ingen varer i handlekurven";
+      }
+
+      function removeFromCart(index) {
+        cart.splice(index, 1); // Fjern element på gitt indeks
+        updateCartView(); // Oppdater visningen
+        updateCartCounter(); // Oppdaterer antall varer
+      }
+    </script>
+  </body>
+</html>
