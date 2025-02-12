@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lys opp lampe</title>
-    <style></style>
+    <style>
+      .lamp {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: lightgray;
+        margin: 5px;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .lightOn {
+        background-color: yellow;
+      }
+
+      #lampContainer {
+        display: flex;
+        flex-wrap: wrap;
+        width: 280px; /* 5 kolonner, 5 rader */
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
   </head>
   <body>
     <h1>Trykk på den opplyste lampen</h1>
@@ -12,9 +38,54 @@
     <div id="timeDisplay"></div>
 
     <script>
-      //Model
-      //View
-      //Controller
+      // Modell
+      let selectedLampIndex = false;
+      let startTime;
+
+      // View
+      // Funksjon for å lage 25 sirkler og vise dem på skjermen
+      function updateView() {
+        const lampContainer = document.getElementById("lampContainer");
+        let htmlContent = ""; // Variabel for å holde HTML innholdet
+
+        for (let i = 0; i < 25; i++) {
+          // Hvis dette er den valgte lampen, legg til "lightOn" klasse
+          const lampClass = i === selectedLampIndex ? "lamp lightOn" : "lamp";
+          htmlContent += `<div class="${lampClass}" onclick="onLampClick(${i})"></div>`;
+        }
+
+        // Sett HTML-innholdet til lampContainer
+        lampContainer.innerHTML = htmlContent;
+      }
+
+      // Kontroller
+      // Kontroller-funksjon for å velge en tilfeldig lampe og starte tidtaking
+      function changeLamp() {
+        selectedLampIndex = Math.floor(Math.random() * 25);
+        startTime = new Date().getTime(); // Start tidtaking
+        updateView();
+      }
+
+      // Funksjon som håndterer klikk på lampen
+      function onLampClick(clickedIndex) {
+        if (clickedIndex === selectedLampIndex) {
+          const finishTime = new Date().getTime();
+          const spentMilliseconds = Math.floor(finishTime - startTime);
+          const spentSeconds = spentMilliseconds / 1000;
+
+          // Vis tid på hvor lang tid det tok å trykke på lampen
+          const timeDisplay = document.getElementById("timeDisplay");
+          timeDisplay.innerHTML = `Tid fra lampe tentes til du trykket: ${spentSeconds} sekunder`;
+
+          // Velg en ny tilfeldig lampe
+          changeLamp();
+        }
+      }
+
+      // Kall kontroller-funksjonen når siden lastes - initialisering
+      window.onload = function () {
+        changeLamp();
+      };
     </script>
   </body>
 </html>

@@ -3,242 +3,105 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Escape Room Challenge</title>
-    <style>
-      body {
-        background: url("https://source.unsplash.com/featured/?dark-room")
-          no-repeat center center fixed;
-        background-size: cover;
-        color: white;
-        font-family: "Arial", sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-      }
-
-      .door-screen {
-        background-color: rgba(0, 0, 0, 0.9);
-        color: white;
-        padding: 40px;
-        border-radius: 15px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .door {
-        width: 150px;
-        height: 300px;
-        background: linear-gradient(to bottom, #654321, #332211);
-        border: 5px solid #3e2a12;
-        border-radius: 5px;
-        position: relative;
-        cursor: pointer;
-      }
-
-      .door-knob {
-        width: 15px;
-        height: 15px;
-        background-color: gold;
-        border-radius: 50%;
-        position: absolute;
-        right: 20px;
-        top: 150px;
-      }
-
-      .door-open-animation {
-        animation: openDoor 1s forwards;
-      }
-
-      @keyframes openDoor {
-        0% {
-          transform: rotateY(0deg);
-        }
-        100% {
-          transform: rotateY(120deg);
-        }
-      }
-
-      .card {
-        background-color: rgba(44, 44, 44, 0.9);
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        max-width: 500px;
-        text-align: center;
-        display: none;
-      }
-
-      h1 {
-        font-size: 28px;
-        margin-bottom: 15px;
-      }
-
-      p {
-        margin: 15px 0;
-      }
-
-      #question {
-        font-size: 18px;
-        margin-bottom: 20px;
-        font-weight: bold;
-      }
-
-      .input-field {
-        padding: 10px;
-        border: none;
-        border-radius: 8px;
-        width: 100%;
-        margin-bottom: 10px;
-      }
-
-      .button {
-        padding: 10px 20px;
-        background-color: #28a745;
-        border: none;
-        border-radius: 8px;
-        color: white;
-        cursor: pointer;
-        width: 100%;
-      }
-
-      .button:hover {
-        background-color: #218838;
-      }
-
-      .fade-in {
-        animation: fadeIn 1s ease-in-out;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      .escape-animation {
-        animation: escape 1.5s ease-in-out forwards;
-      }
-
-      @keyframes escape {
-        from {
-          transform: translateY(0);
-          opacity: 1;
-        }
-        to {
-          transform: translateY(-100vh);
-          opacity: 0;
-        }
-      }
-    </style>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        let attempts = 3;
-        const questions = [
-          { question: "What is 2 + 2?", answer: "4" },
-          { question: "What color is the sky on a clear day?", answer: "blue" },
-          {
-            question: "What is the first letter of the alphabet?",
-            answer: "a",
-          },
-        ];
-        let currentQuestionIndex = 0;
-        const doorScreen = document.getElementById("doorScreen");
-        const gameCard = document.querySelector(".card");
-        const questionElement = document.getElementById("question");
-        const messageElement = document.getElementById("message");
-        const inputField = document.getElementById("answerInput");
-        const submitButton = document.getElementById("submitButton");
-        const door = document.querySelector(".door");
-
-        function setMessage(text) {
-          messageElement.textContent = text;
-          messageElement.classList.add("fade-in");
-          setTimeout(() => messageElement.classList.remove("fade-in"), 1000);
-        }
-
-        function loadQuestion() {
-          if (currentQuestionIndex < questions.length) {
-            questionElement.textContent =
-              questions[currentQuestionIndex].question;
-          } else {
-            // Po rozwiązaniu wszystkich pytań, wyświetlamy komunikat o wygranej
-            setMessage(
-              "Congratulations! You have solved all puzzles and escaped the room! 🎉"
-            );
-            setTimeout(() => {
-              setMessage(
-                "You are free! You've completed the level and are moving to the next challenge! 🚪💥"
-              );
-            }, 1500); // Opóźnienie przed wyświetleniem kolejnego komunikatu
-            inputField.disabled = true;
-            submitButton.disabled = true;
-            gameCard.classList.add("escape-animation");
-          }
-        }
-
-        submitButton.addEventListener("click", () => {
-          const answer = inputField.value.trim().toLowerCase();
-          if (attempts <= 1) {
-            setMessage("You are trapped forever. Game over! 😱");
-            inputField.disabled = true;
-            submitButton.disabled = true;
-            return;
-          }
-
-          if (answer === questions[currentQuestionIndex].answer) {
-            currentQuestionIndex++;
-            setMessage("Correct! Loading the next question...");
-            setTimeout(loadQuestion, 1500);
-          } else {
-            attempts--;
-            setMessage(`Wrong answer. You have ${attempts} attempt(s) left.`);
-          }
-
-          inputField.value = "";
-        });
-
-        door.addEventListener("click", () => {
-          // Add the animation class to open the door
-          door.classList.add("door-open-animation");
-
-          // Wait for the animation to finish before transitioning to the puzzle screen
-          door.addEventListener("animationend", () => {
-            doorScreen.style.display = "none"; // Hide the door screen
-            gameCard.style.display = "block"; // Show the puzzle screen
-            loadQuestion();
-          });
-        });
-
-        doorScreen.style.display = "block"; // Initially show the door screen
-      });
-    </script>
+    <title>Escape Room</title>
   </head>
   <body>
-    <div id="doorScreen" class="door-screen">
-      <h1>Welcome to the Escape Room</h1>
-      <p>You stand before a mysterious door. Do you dare to enter?</p>
-      <div class="door">
-        <div class="door-knob"></div>
-      </div>
-    </div>
-    <div class="card">
-      <h1>Escape Room Challenge 🧩</h1>
-      <p id="question">Loading the first puzzle...</p>
-      <p id="message"></p>
-      <input
-        type="text"
-        id="answerInput"
-        class="input-field"
-        placeholder="Enter your answer here"
-      />
-      <button id="submitButton" class="button">Submit Answer</button>
-    </div>
+    <div id="app"></div>
+
+    <script>
+      // View - Initial Question
+      function question1() {
+        document.getElementById("app").innerHTML = `
+          <h1>Escape Room</h1>
+          <div id="spørsmål">Hva er 2 + 2?</div>
+          <div id="submitDiv">
+            <input id="inputField" type="text" placeholder="Skriv svaret ditt her" />
+            <button id="btnSubmit" onclick="submitAnswer1()">Sjekk svar</button>
+          </div>
+          <div id="text"></div>
+        `;
+      }
+
+      // Controller - Submit Answer for Question 1
+      function submitAnswer1() {
+        const inputId = document
+          .getElementById("inputField")
+          .value.trim()
+          .toLowerCase();
+
+        if (inputId === "4") {
+          document.getElementById("text").innerText =
+            "Riktig! Klikk på knappen for å gå til neste spørsmål.";
+          document.getElementById("submitDiv").innerHTML = `
+            <button onclick="question2()">Neste spørsmål</button>
+          `;
+        } else {
+          document.getElementById("text").innerText = "Feil svar! Prøv igjen.";
+        }
+      }
+
+      // View - Question 2
+      function question2() {
+        document.getElementById("app").innerHTML = `
+          <h1>Escape Room</h1>
+          <div id="spørsmål">Hva er hovedstaden i Norge?</div>
+          <div id="submitDiv">
+            <input id="inputField" type="text" placeholder="Skriv svaret ditt her" />
+            <button id="btnSubmit" onclick="submitAnswer2()">Sjekk svar</button>
+          </div>
+          <div id="text"></div>
+        `;
+      }
+
+      // Controller - Submit Answer for Question 2
+      function submitAnswer2() {
+        const inputId = document
+          .getElementById("inputField")
+          .value.trim()
+          .toLowerCase();
+
+        if (inputId === "oslo") {
+          document.getElementById("text").innerText =
+            "Riktig! Klikk på knappen for å gå til neste spørsmål.";
+          document.getElementById("submitDiv").innerHTML = `
+            <button onclick="showQuestion3()">Neste spørsmål</button>
+          `;
+        } else {
+          document.getElementById("text").innerText = "Feil svar! Prøv igjen.";
+        }
+      }
+
+      // View - Question 3
+      function showQuestion3() {
+        document.getElementById("app").innerHTML = `
+          <h1>Escape Room</h1>
+          <div id="spørsmål">Hva er fargen på himmelen?</div>
+          <div id="submitDiv">
+            <input id="inputField" type="text" placeholder="Skriv svaret ditt her" />
+            <button id="btnSubmit" onclick="submitAnswer3()">Sjekk svar</button>
+          </div>
+          <div id="text"></div>
+        `;
+      }
+
+      // Controller - Submit Answer for Question 3
+      function submitAnswer3() {
+        const inputId = document
+          .getElementById("inputField")
+          .value.trim()
+          .toLowerCase();
+
+        if (inputId === "blå") {
+          document.getElementById("text").innerText =
+            "Gratulerer! Du har fullført alle spørsmålene!";
+          document.getElementById("submitDiv").innerHTML = "";
+        } else {
+          document.getElementById("text").innerText = "Feil svar! Prøv igjen.";
+        }
+      }
+
+      // Initial call to set fields
+      question1();
+    </script>
   </body>
 </html>
