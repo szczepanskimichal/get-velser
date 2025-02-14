@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <style>
+      table,
+      tr,
+      td,
+      th {
+        border: 1px solid lightgray;
+        border-collapse: collapse;
+      }
+
+      td,
+      th {
+        padding: 4px;
+      }
+
+      th {
+        background-color: darkblue;
+        border: 1px solid darkblue;
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background: rgb(9, 168, 65);
+      }
+    </style>
+  </head>
+  <body>
+    <table id="tasksTable"></table>
+    <p>
+      <input type="text" onclick="addTask()" /><button>Legg til oppgave</button>
+    </p>
+    <script>
+      //MOdel
+      let tasks = [
+        {
+          description: "Handle til middag",
+          isDone: true,
+        },
+        {
+          description: "Lage middag",
+          isDone: false,
+        },
+      ];
+
+      //COntroller
+      function addTask() {}
+
+      //View
+      let tasksTable = document.getElementById("tasksTable");
+      function show() {
+        tasksTable.innerHTML = `
+        <tr>
+          <th>Oppgave</th>
+          <th>Ferdig</th>
+          </tr>
+          <tr>
+            <td>Handle til middag</td>
+            <td><input type="checkbox" checked="checked" /></td>
+            </tr>
+            <tr>
+              <td>Lage middag</td>
+              <td><input type="checkbox" /></td>
+              </tr>
+              `;
+      }
+      show();
+    </script>
+  </body>
+</html>
