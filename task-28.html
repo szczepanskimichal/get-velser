@@ -32,7 +32,9 @@
   <body>
     <table id="tasksTable"></table>
     <p>
-      <input type="text" onclick="addTask()" /><button>Legg til oppgave</button>
+      <input type="text" id="taskDescription" /><button onclick="addTask()">
+        Legg til oppgave
+      </button>
     </p>
     <script>
       //MOdel
@@ -52,7 +54,15 @@
       ];
 
       //COntroller
-      function addTask() {}
+      let taskDescriptionInput = document.getElementById("taskDescription");
+      function addTask() {
+        tasks.push({
+          description: taskDescriptionInput.value,
+          isDone: false,
+        });
+        taskDescriptionInput.value = "";
+        show(); //Oppdaterer tabellen!!! alltid etter endring!!! Husk dette!!!
+      }
 
       //View
       let tasksTable = document.getElementById("tasksTable");
