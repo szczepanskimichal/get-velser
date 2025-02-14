@@ -45,6 +45,10 @@
           description: "Lage middag",
           isDone: false,
         },
+        {
+          description: "Spise middag",
+          isDone: false,
+        },
       ];
 
       //COntroller
@@ -52,23 +56,32 @@
 
       //View
       let tasksTable = document.getElementById("tasksTable");
+      show();
       function show() {
-        tasksTable.innerHTML = `
+        let html = `
         <tr>
           <th>Oppgave</th>
           <th>Ferdig</th>
           </tr>
           <tr>
-            <td>Handle til middag</td>
-            <td><input type="checkbox" checked="checked" /></td>
-            </tr>
+            `;
+        for (let task of tasks) {
+          const checked = task.isDone ? 'checked="checked"' : "";
+          html += `
             <tr>
-              <td>Lage middag</td>
+            <td>${task.description}</td>
+            <td><input type="checkbox" ${checked} /></td>
+            </tr>
+            `;
+        }
+        tasksTable.innerHTML = html; //Oppdaterer tabellen
+        console.log(html);
+
+        let rowHtml = `     <td>Lage middag</td>
               <td><input type="checkbox" /></td>
               </tr>
               `;
       }
-      show();
     </script>
   </body>
 </html>
