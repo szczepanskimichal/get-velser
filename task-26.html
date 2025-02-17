@@ -47,7 +47,9 @@
       <div class="card" id="card2">?</div>
       <div class="card" id="card3">?</div>
     </div>
-
+    <div class="controls">
+      <button onclick="spin()">🎰 Spinn</button>
+    </div>
     <div class="betControls">
       Innsats:
       <button onclick="">-</button>
@@ -63,5 +65,52 @@
     <div class="scoreboard">
       Kreditter: <span id="credits">50</span> | Poeng: <span id="score">0</span>
     </div>
+
+    <script>
+      let credits = 50;
+      let score = 0;
+      let bet = 1;
+      let spins = 0;
+      const symbols = ["🍒", "🍋", "🔔", "⭐", "🍇", "💎"];
+
+      function spin() {
+        if (credits < bet) {
+          alert("Ingen kreditter igjen! Oppdater siden for å spille igjen.");
+          return;
+        }
+
+        credits -= bet;
+        spins++;
+
+        let card1 = symbols[Math.floor(Math.random() * symbols.length)];
+        let card2 = symbols[Math.floor(Math.random() * symbols.length)];
+        let card3 = symbols[Math.floor(Math.random() * symbols.length)];
+
+        // Øker sjansene for å vinne i begynnelsen av spillet - syns jeg
+        if (spins <= 10) {
+          if (Math.random() < 0.5) {
+            card1 =
+              card2 =
+              card3 =
+                symbols[Math.floor(Math.random() * symbols.length)];
+          }
+        }
+
+        document.getElementById("card1").innerText = card1;
+        document.getElementById("card2").innerText = card2;
+        document.getElementById("card3").innerText = card3;
+
+        if (card1 === card2 && card2 === card3) {
+          score += 10 * bet;
+          credits += 5 * bet; // Bonus for å vinne
+          alert(
+            "🎉 Du vant! +" + 10 * bet + " poeng og +" + 5 * bet + " kreditter!"
+          );
+        }
+
+        document.getElementById("credits").innerText = credits;
+        document.getElementById("score").innerText = score;
+      }
+    </script>
   </body>
 </html>
