@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .color-box {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        position: relative;
+      }
+      .remove-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: white;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="colorInput" placeholder="Enter color" />
+      <button onclick="controller.addColor()">Add Color</button>
+    </div>
+    <div id="App"></div>
+    <script>
+      // Model
+      const model = {
+        colors: [
+          "red",
+          "green",
+          "blue",
+          "yellow",
+          "purple",
+          "orange",
+          "pink",
+          "brown",
+          "black",
+          "white",
+        ],
+      };
+
+      // View
+      const view = {
+        updateView() {
+          const appDiv = document.getElementById("App");
+          appDiv.innerHTML = ""; // Clear the current content
+
+          for (const [index, color] of model.colors.entries()) {
+            const colorBox = document.createElement("div");
+            colorBox.className = "color-box";
+            colorBox.style.backgroundColor = color;
+
+            const removeBtn = document.createElement("button");
+            removeBtn.className = "remove-btn";
+            removeBtn.innerText = "x";
+            removeBtn.onclick = () => controller.removeColor(index);
+
+            colorBox.appendChild(removeBtn);
+            appDiv.appendChild(colorBox);
+          }
+        },
+      };
+
+      // Controller
+      const controller = {
+        addColor() {
+          const colorInput = document.getElementById("colorInput");
+          const newColor = colorInput.value.trim();
+          if (newColor) {
+            model.colors.push(newColor);
+            colorInput.value = ""; // Clear the input field
+            view.updateView();
+          }
+        },
+        removeColor(index) {
+          model.colors.splice(index, 1);
+          view.updateView();
+        },
+      };
+
+      // Initial view update
+      view.updateView();
+    </script>
+  </body>
+</html>

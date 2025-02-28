@@ -3,11 +3,110 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Calendar</title>
   </head>
-  <body>
-    <div>
-      <p>siema</p>
-    </div>
+
+  <body onload="updateView()">
+    <!-- Główna sekcja aplikacji, gdzie będą wyświetlane dane -->
+    <div id="app"></div>
+
+    <script>
+      // Zmienna przechowująca aktualny czas i datę w formacie ISO
+      let timeAndDate = "2024-01-01";
+
+      // Funkcja aktualizująca widok aplikacji
+      function updateView() {
+        // Tworzenie obiektu Date na podstawie zmiennej timeAndDate
+        let date = new Date(timeAndDate);
+        // Aktualizacja zawartości elementu o id "app" za pomocą szablonu HTML
+        document.getElementById("app").innerHTML = /*HTML*/ `
+                <h1>
+                    ${date.toLocaleString()}
+                </h1>
+                <button onclick="addDay()">+1 dag</button>
+                <button onclick="subtractDay()">-1 dag</button>
+                <button onclick="addTime()">+1 time</button>
+                <button onclick="subtractTime()">-1 time</button>
+                <button onclick="nextMonth()">til neste måned</button>
+                <button onclick="previousMonth()">til forrige måned</button>
+            `;
+      }
+
+      // Funkcja zmieniająca miesiąc na poprzedni
+      function previousMonth() {
+        // Tworzenie obiektu Date na podstawie zmiennej timeAndDate
+        let date = new Date(timeAndDate);
+        // Pobieranie aktualnego miesiąca
+        let startMonth = date.getMonth();
+        // Ustawianie nowego miesiąca (poprzedni miesiąc)
+        let newDate = new Date(date.setMonth(startMonth - 1));
+        // Aktualizacja zmiennej timeAndDate na nową datę w formacie ISO
+        timeAndDate = newDate.toISOString();
+        // Aktualizacja widoku
+        updateView();
+      }
+
+      // Funkcja zmieniająca miesiąc na następny
+      function nextMonth() {
+        // Tworzenie obiektu Date na podstawie zmiennej timeAndDate
+        let date = new Date(timeAndDate);
+        // Pobieranie aktualnego miesiąca
+        let startMonth = date.getMonth();
+        // Ustawianie nowego miesiąca (następny miesiąc)
+        let newDate = new Date(date.setMonth(startMonth + 1));
+        // Aktualizacja zmiennej timeAndDate na nową datę w formacie ISO
+        timeAndDate = newDate.toISOString();
+        // Aktualizacja widoku
+        updateView();
+      }
+
+      // Funkcja dodająca jedną godzinę do aktualnej daty
+      function addTime() {
+        // Tworzenie obiektu Date na podstawie zmiennej timeAndDate
+        let date = new Date(timeAndDate);
+        // Dodawanie jednej godziny (w milisekundach) do aktualnej daty
+        let newDate = new Date(date.getTime() + 1000 * 60 * 60);
+        // Aktualizacja zmiennej timeAndDate na nową datę w formacie ISO
+        timeAndDate = newDate.toISOString();
+        // Aktualizacja widoku
+        updateView();
+      }
+
+      // Funkcja odejmująca jedną godzinę od aktualnej daty
+      function subtractTime() {
+        // Tworzenie obiektu Date na podstawie zmiennej timeAndDate
+        let date = new Date(timeAndDate);
+        // Odejmowanie jednej godziny (w milisekundach) od aktualnej daty
+        let newDate = new Date(date.getTime() - 1000 * 60 * 60);
+        // Aktualizacja zmiennej timeAndDate na nową datę w formacie ISO
+        timeAndDate = newDate.toISOString();
+        // Aktualizacja widoku
+        updateView();
+      }
+
+      // Funkcja dodająca jeden dzień do aktualnej daty
+      function addDay() {
+        // Tworzenie obiektu Date na podstawie zmiennej timeAndDate
+        let date = new Date(timeAndDate);
+        // Dodawanie jednego dnia (w milisekundach) do aktualnej daty
+        let newDate = new Date(date.getTime() + 1000 * 60 * 60 * 24);
+        // Aktualizacja zmiennej timeAndDate na nową datę w formacie ISO
+        timeAndDate = newDate.toISOString();
+        // Aktualizacja widoku
+        updateView();
+      }
+
+      // Funkcja odejmująca jeden dzień od aktualnej daty
+      function subtractDay() {
+        // Tworzenie obiektu Date na podstawie zmiennej timeAndDate
+        let date = new Date(timeAndDate);
+        // Odejmowanie jednego dnia (w milisekundach) od aktualnej daty
+        let newDate = new Date(date.getTime() - 1000 * 60 * 60 * 24);
+        // Aktualizacja zmiennej timeAndDate na nową datę w formacie ISO
+        timeAndDate = newDate.toISOString();
+        // Aktualizacja widoku
+        updateView();
+      }
+    </script>
   </body>
 </html>
