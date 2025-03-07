@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokemon</title>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto+Condensed:wght@700&display=swap");
+
+      html::-webkit-scrollbar {
+        display: none;
+      }
+
+      #app {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 98vh;
+        width: 98vw;
+        font-family: "Orbitron", sans-serif;
+        font-family: "Roboto Condensed", sans-serif;
+        font-size: 32px;
+      }
+
+      .opposingPokemon {
+        margin-left: 50%;
+      }
+
+      button {
+        height: 100px;
+        width: 100px;
+      }
+
+      .buttonContainer {
+        width: 200px;
+        display: flex;
+        margin-bottom: 22px;
+        margin-left: 50%;
+      }
+
+      img {
+        width: auto;
+        height: 250px;
+      }
+
+      .bottomScreen {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        flex-direction: row;
+      }
+
+      .caughtContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .pokemonPartyContainer {
+        display: grid;
+        grid-template-columns: repeat(2, 220px);
+      }
+
+      .pokemonBoxDisplay {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        border: 3px solid rgb(107, 222, 115);
+        background-image: linear-gradient(rgb(0, 107, 33), rgb(49, 222, 82));
+        margin: 10px;
+        padding: 5px;
+      }
+
+      .partyImg {
+        width: 40px;
+        height: 40px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script type="text/javascript">
+      console.log("Script loaded successfully!"); // Sprawdzenie, czy skrypt został załadowany
+    </script>
+    <script>
+      // Definicje zmiennych dla Pokemonów
+      let pikachuName = "Pikachu";
+
+      let pikachu = {
+        name: "Pikachu",
+        health: 45,
+        image: "Images/pikachu.png",
+        level: 8,
+      };
+
+      let bulbasaur = {
+        name: "Bulbasaur",
+        health: 70,
+        image: "Images/bulbasaur.png",
+        level: 12,
+      };
+
+      let oranguru = {
+        name: "Oranguru",
+        health: 170,
+        image: "Images/oranguru.png",
+        level: 45,
+      };
+
+      let drowzee = {
+        name: "Drowzee",
+        health: 90,
+        image: "Images/drowzee.png",
+        level: 33,
+      };
+
+      let possiblePokemon = [pikachu, bulbasaur, oranguru, drowzee]; // Lista możliwych Pokemonów
+      let randomPokemon = null; // Zmienna przechowująca losowego Pokemona
+
+      // Definicje graczy
+      let players = [
+        {
+          name: "Bjarne",
+          image: "/Images/pokemonTrainerIdle.png",
+          pokemon: [],
+        },
+        { name: "Kari", image: "/Images/pokemonTrainerIdle.png", pokemon: [] },
+        { name: "Ola", image: "/Images/pokemonTrainerIdle.png", pokemon: [] },
+        { name: "Knut", image: "/Images/pokemonTrainerIdle.png", pokemon: [] },
+      ];
+      let currentPlayerIndex = 0; // Indeks aktualnego gracza
+
+      let app = document.getElementById("app"); // Pobranie elementu app
+
+      updateView(); // Aktualizacja widoku
+
+      function updateView() {
+        getRandomPokemon(); // Pobranie losowego Pokemona
+        let currentPlayer = players[currentPlayerIndex]; // Pobranie aktualnego gracza
+        app.innerHTML = /*HTML*/ `
+      <div class="container">
+        <div class="opposingPokemon">
+            <div>${randomPokemon.name}</div>
+            <div>lvl: ${randomPokemon.level}</div>
+            <img src="${randomPokemon.image}">
+        </div>
+
+        <div class="bottomScreen">
+            <div class="player">
+                <img src="${currentPlayer.image}">
+                <div>${currentPlayer.name}</div>
+            </div>
+
+            <div class="buttonContainer">
+                <button onclick="catchPokemon()">Fang</button>
+                <button onclick="updateView()">Finn en annen</button>
+                <button onclick="showPokemon()">Vis dine pokemon</button>
+                <button onclick="changePlayer()">Bytt spiller</button>
+            </div>
+
+        </div>
+      </div>
+      `;
+      }
+
+      function caughtPokemonView() {
+        let currentPlayer = players[currentPlayerIndex]; // Pobranie aktualnego gracza
+        app.innerHTML = /*HTML*/ `
+      <div class="caughtContainer">
+        <h1>Du fanget ${
+          currentPlayer.pokemon[currentPlayer.pokemon.length - 1].name
+        }</h1>
+        <div class="buttonContainer">
+                  <button onclick="updateView()">Finn en annen</button>
+                  <button onclick="showPokemon()">Vis dine pokemon</button>
+                  <button onclick="changePlayer()">Bytt spiller</button>
+              </div>
+      </div>
+      `;
+      }
+
+      function catchPokemon() {
+        let currentPlayer = players[currentPlayerIndex]; // Pobranie aktualnego gracza
+        currentPlayer.pokemon.push(randomPokemon); // Dodanie złapanego Pokemona do listy gracza
+        caughtPokemonView(); // Aktualizacja widoku po złapaniu Pokemona
+      }
+
+      function showPokemon() {
+        let currentPlayer = players[currentPlayerIndex]; // Pobranie aktualnego gracza
+        app.innerHTML = /*HTML*/ `
+        <div class="pokemonPartyContainer">
+          ${currentPlayer.pokemon
+            .map(
+              (pokemon) => `
+            <div class="pokemonBoxDisplay">
+              <img class="partyImg" src="${pokemon.image}" alt="${pokemon.name}">
+              <div>${pokemon.name}</div>
+              <div>lvl: ${pokemon.level}</div>
+            </div>
+          `
+            )
+            .join("")}
+        </div>
+        <div class="buttonContainer">
+          <button onclick="updateView()">Tilbake</button>
+        </div>
+        `;
+      }
+
+      function getRandomPokemon() {
+        let randomNum = Math.floor(Math.random() * possiblePokemon.length); // Losowanie numeru Pokemona
+        randomPokemon = possiblePokemon[randomNum]; // Przypisanie losowego Pokemona
+      }
+
+      function changePlayer() {
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.length; // Zmiana aktualnego gracza
+        updateView(); // Aktualizacja widoku
+      }
+    </script>
+  </body>
+</html>

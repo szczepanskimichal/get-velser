@@ -32,8 +32,9 @@
 
       function addKid() {
         const name = document.getElementById("name").value;
-        const age = parseInt(document.getElementById("age").value, 10);
+        const age = parseInt(document.getElementById("age").value, 10); // Parse as integer with base 10
         if (name && !isNaN(age)) {
+          // Check if name is not empty and age is a number
           children.push({ name, age });
           updateList();
         }
