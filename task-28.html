@@ -79,12 +79,21 @@
           html += `<tr>
              <td>${task.description}</td>
              <td><input onChange="changIsDone(this, {i})" type="checkbox" ${checkedHtml} /></td>
+             <td><button onclick='deleteTask(${i})'>Slett</button></td>
              </tr>`;
         }
         tasksTable.innerHTML = html; //Oppdaterer tabellen
       }
 
-      function changIsDone(checkbox, index) {}
+      function changIsDone(checkbox, index) {
+        // const isDone = checkbox.checked;
+        tasks[index].isDone = checkbox.checked;
+        show(); //Oppdaterer tabellen!!! alltid etter endring!!! Husk dette!!!
+      }
+      function deleteTask(index) {
+        tasks.splice(index, 1);
+        show(); //Oppdaterer tabellen!!! alltid etter endring!!! Husk dette!!!
+      }
     </script>
   </body>
 </html>
