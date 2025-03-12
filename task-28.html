@@ -32,36 +32,59 @@
   <body>
     <table id="tasksTable"></table>
     <p>
-      <input type="text" id="taskDescription" /><button onclick="addTask()">
-        Legg til oppgave
-      </button>
+      <input type="text" id="taskDescription" />
+      <input type="text" id="taskPerson" placeholder="Person" />
+      <input type="date" id="taskDeadline" placeholder="Frist" />
+      <button onclick="addTask()">Legg til oppgave</button>
     </p>
     <script>
       //MOdel
       let tasks = [
         {
           description: "Handle til middag",
+          person: "Ola",
+          deadline: 2025 - 12 - 24,
           isDone: true,
+          doneDate: 2025 - 12 - 23,
         },
         {
           description: "Lage middag",
+          person: "Kari",
+          deadline: 2025 - 12 - 24,
           isDone: false,
+          doneDate: null,
         },
         {
           description: "Spise middag",
+          person: "Per",
+          deadline: 2025 - 12 - 24,
           isDone: false,
+          doneDate: null,
         },
       ];
 
       //COntroller
       let taskDescriptionInput = document.getElementById("taskDescription");
+      let taskPersonInput = document.getElementById("taskPerson");
+      let taskDeadlineInput = document.getElementById("taskDeadline");
+
       function addTask() {
         tasks.push({
           description: taskDescriptionInput.value,
+          person: taskPersonInput.value,
+          deadline: taskDeadlineInput.value,
           isDone: false,
+          doneDate: null,
         });
         taskDescriptionInput.value = "";
+        taskPersonInput.value = "";
+        taskDeadlineInput.value = "";
+        saveTasks();
         show(); //Oppdaterer tabellen!!! alltid etter endring!!! Husk dette!!!
+      }
+
+      function saveTasks() {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
       }
 
       //View
@@ -71,7 +94,9 @@
         let html = `
         <tr>
           <th>Oppgave</th>
+          <th>Frist</th>
           <th>Ferdig</th>
+          <th>Gjort dato</th>
           <th></th>
           </tr>`;
         for (let i = 0; i < tasks.length; i++) {
@@ -83,10 +108,19 @@
       function createHtmlRow(i) {
         const task = tasks[i];
         const checkedHtml = task.isDone ? 'checked="checked"' : "";
+        const doneDateHtml = task.doneDate
+          ? new Date(task.doneDate).toLocaleDateString()
+          : "";
         if (!task.editMode)
           return `<tr>
                             <td>${task.description}</td>
+                            <td>${task.person}</td>
+                            <td>${new Date(
+                              task.deadline
+                            ).toLocaleDateString()}</td>
                             <td><input onchange="changeIsDone(this, ${i})" type="checkbox" ${checkedHtml} /></td>
+                            <td>${doneDateHtml}</td>
+
                             <td>
                                 <button onclick="deleteTask(${i})">Slett</button>
                                 <button onclick="editTask(${i})">Rediger</button>
@@ -95,10 +129,14 @@
                         `;
         return `<tr>
                             <td><input id="editDescription${i}" type="text" value="${task.description}"/></td>
+                            <td><input id="editPerson${i}" type="text" value="${task.person}"/></td>
+                            <td><input id="editDeadline${i}" type="date" value="${task.deadline}"/></td>
                             <td><input onchange="changeIsDone(this, ${i})" type="checkbox" ${checkedHtml} /></td>
+                            <td>${doneDateHtml}</td>
                             <td>
                                 <button onclick="updateTask(${i})">Lagre</button>
                             </td>
+                        </tr>
                         </tr>
                         `;
       }
@@ -106,10 +144,15 @@
       function changIsDone(checkbox, index) {
         // const isDone = checkbox.checked;
         tasks[index].isDone = checkbox.checked;
+        tasks[index].doneDate = checkbox.checked
+          ? new Date().toISOString().substr(0, 10)
+          : null;
+        saveTasks();
         show(); //Oppdaterer tabellen!!! alltid etter endring!!! Husk dette!!!
       }
       function deleteTask(index) {
         tasks.splice(index, 1);
+        saveTasks();
         show(); //Oppdaterer tabellen!!! alltid etter endring!!! Husk dette!!!
       }
       function editTask(index) {
