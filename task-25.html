@@ -83,9 +83,8 @@
       }
 
       // Kall kontroller-funksjonen når siden lastes - initialisering
-      window.onload = function () {
-        changeLamp();
-      };
+
+      document.addEventListener("DOMContentLoaded", changeLamp);
     </script>
   </body>
 </html>

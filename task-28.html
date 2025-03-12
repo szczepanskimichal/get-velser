@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do List</title>
     <style>
+      /* Stylizacja tabeli i jej elementów */
       table,
       tr,
       td,
@@ -30,44 +31,49 @@
     </style>
   </head>
   <body>
+    <!-- Tabela z zadaniami -->
     <table id="tasksTable"></table>
     <p>
+      <!-- Pola do wprowadzania nowych zadań -->
       <input type="text" id="taskDescription" />
       <input type="text" id="taskPerson" placeholder="Person" />
       <input type="date" id="taskDeadline" placeholder="Frist" />
       <button onclick="addTask()">Legg til oppgave</button>
     </p>
     <script>
-      //MOdel
-      let tasks = [
+      // Model
+      // Pobieranie zadań z localStorage lub ustawienie domyślnych zadań
+      let tasks = JSON.parse(localStorage.getItem("tasks")) || [
         {
           description: "Handle til middag",
           person: "Ola",
-          deadline: 2025 - 12 - 24,
+          deadline: "2025-12-24",
           isDone: true,
-          doneDate: 2025 - 12 - 23,
+          doneDate: "2025-12-23",
         },
         {
           description: "Lage middag",
           person: "Kari",
-          deadline: 2025 - 12 - 24,
+          deadline: "2025-12-24",
           isDone: false,
           doneDate: null,
         },
         {
           description: "Spise middag",
           person: "Per",
-          deadline: 2025 - 12 - 24,
+          deadline: "2025-12-24",
           isDone: false,
           doneDate: null,
         },
       ];
 
-      //COntroller
+      // Controller
+      // Pobieranie referencji do elementów formularza
       let taskDescriptionInput = document.getElementById("taskDescription");
       let taskPersonInput = document.getElementById("taskPerson");
       let taskDeadlineInput = document.getElementById("taskDeadline");
 
+      // Funkcja dodająca nowe zadanie
       function addTask() {
         tasks.push({
           description: taskDescriptionInput.value,
@@ -76,24 +82,29 @@
           isDone: false,
           doneDate: null,
         });
+        // Czyszczenie pól formularza
         taskDescriptionInput.value = "";
         taskPersonInput.value = "";
         taskDeadlineInput.value = "";
         saveTasks();
-        show(); //Oppdaterer tabellen!!! alltid etter endring!!! Husk dette!!!
+        show(); // Aktualizacja tabeli po każdej zmianie
       }
 
+      // Funkcja zapisująca zadania do localStorage
       function saveTasks() {
         localStorage.setItem("tasks", JSON.stringify(tasks));
       }
 
-      //View
+      // View
+      // Pobieranie referencji do tabeli z zadaniami
       let tasksTable = document.getElementById("tasksTable");
       show();
+      // Funkcja wyświetlająca zadania w tabeli
       function show() {
         let html = `
         <tr>
           <th>Oppgave</th>
+          <th>Person</th>
           <th>Frist</th>
           <th>Ferdig</th>
           <th>Gjort dato</th>
@@ -102,9 +113,10 @@
         for (let i = 0; i < tasks.length; i++) {
           html += createHtmlRow(i);
         }
-        tasksTable.innerHTML = html; //Oppdaterer tabellen
+        tasksTable.innerHTML = html; // Aktualizacja tabeli
       }
 
+      // Funkcja tworząca wiersz tabeli dla zadania
       function createHtmlRow(i) {
         const task = tasks[i];
         const checkedHtml = task.isDone ? 'checked="checked"' : "";
@@ -120,7 +132,6 @@
                             ).toLocaleDateString()}</td>
                             <td><input onchange="changeIsDone(this, ${i})" type="checkbox" ${checkedHtml} /></td>
                             <td>${doneDateHtml}</td>
-
                             <td>
                                 <button onclick="deleteTask(${i})">Slett</button>
                                 <button onclick="editTask(${i})">Rediger</button>
@@ -137,34 +148,46 @@
                                 <button onclick="updateTask(${i})">Lagre</button>
                             </td>
                         </tr>
-                        </tr>
                         `;
       }
 
-      function changIsDone(checkbox, index) {
-        // const isDone = checkbox.checked;
+      // Funkcja zmieniająca status zadania na wykonane lub niewykonane
+      function changeIsDone(checkbox, index) {
         tasks[index].isDone = checkbox.checked;
         tasks[index].doneDate = checkbox.checked
           ? new Date().toISOString().substr(0, 10)
           : null;
         saveTasks();
-        show(); //Oppdaterer tabellen!!! alltid etter endring!!! Husk dette!!!
+        show(); // Aktualizacja tabeli po każdej zmianie
       }
+
+      // Funkcja usuwająca zadanie
       function deleteTask(index) {
         tasks.splice(index, 1);
         saveTasks();
-        show(); //Oppdaterer tabellen!!! alltid etter endring!!! Husk dette!!!
+        show(); // Aktualizacja tabeli po każdej zmianie
       }
+
+      // Funkcja włączająca tryb edycji zadania
       function editTask(index) {
         tasks[index].editMode = true;
         show();
       }
+
+      // Funkcja aktualizująca zadanie po edycji
       function updateTask(index) {
-        const id = `editDescription${index}`;
-        const inputTag = document.getElementById(id);
+        const idDescription = `editDescription${index}`;
+        const idPerson = `editPerson${index}`;
+        const idDeadline = `editDeadline${index}`;
+        const inputDescription = document.getElementById(idDescription);
+        const inputPerson = document.getElementById(idPerson);
+        const inputDeadline = document.getElementById(idDeadline);
         const task = tasks[index];
-        task.description = inputTag.value;
+        task.description = inputDescription.value;
+        task.person = inputPerson.value;
+        task.deadline = inputDeadline.value;
         task.editMode = false;
+        saveTasks();
         show();
       }
     </script>
